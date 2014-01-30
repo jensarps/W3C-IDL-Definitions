@@ -1,0 +1,53 @@
+/*
+ * This file contains definitions gathered from
+ * http://www.w3.org/TR/2013/CR-pointerevents-20130509/
+ */
+
+dictionary PointerEventInit : MouseEventInit {
+    long      pointerId = 0;
+    long      width = 0;
+    long      height = 0;
+    float     pressure = 0;
+    long      tiltX = 0;
+    long      tiltY = 0;
+    DOMString pointerType = "";
+    boolean   isPrimary = false;
+};
+
+[Constructor(DOMString type, optional PointerEventInit eventInitDict)]
+interface PointerEvent : MouseEvent {
+    readonly    attribute long      pointerId;
+    readonly    attribute long      width;
+    readonly    attribute long      height;
+    readonly    attribute float     pressure;
+    readonly    attribute long      tiltX;
+    readonly    attribute long      tiltY;
+    readonly    attribute DOMString pointerType;
+    readonly    attribute boolean   isPrimary;
+};
+
+// Extensions to the Element interface
+partial interface Element {
+                attribute EventHandler ongotpointercapture;
+                attribute EventHandler onlostpointercapture;
+    void setPointerCapture (long pointerId);
+    void releasePointerCapture (long pointerId);
+};
+
+// Extensions to the GlobalEventHandlers interface
+partial interface GlobalEventHandlers {
+                attribute EventHandler onpointerdown;
+                attribute EventHandler onpointermove;
+                attribute EventHandler onpointerup;
+                attribute EventHandler onpointercancel;
+                attribute EventHandler onpointerover;
+                attribute EventHandler onpointerout;
+                attribute EventHandler onpointerenter;
+                attribute EventHandler onpointerleave;
+};
+
+// Extensions to the Navigator interface
+partial interface Navigator {
+    readonly    attribute boolean pointerEnabled;
+    readonly    attribute long    maxTouchPoints;
+};
